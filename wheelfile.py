@@ -1439,12 +1439,20 @@ class WheelFile:
         Parameters
         ----------
         filename
-            Path to the file to add.
+            Path to the file or directory to add.
 
         arcname
             Path in the archive to assign the file into. If not given,
             `filename` will be used instead. In both cases, the leading path
             separators and the drive letter (if any) will be removed.
+
+        recursive
+            When True, if given path leads to a directory, all of its contents
+            are going to be added into the archive, including contents of its
+            subdirectories.
+
+            If its False, only a directory entry is going to be added, without
+            any of tis contents.
         """
         self._zip.write(filename, arcname=arcname)
 
@@ -1502,7 +1510,7 @@ class WheelFile:
         Parameters
         ----------
         filename
-            Path to the file to add.
+            Path to the file or directory to add.
 
         section
             Name of the section, i.e. the directory inside `.data/` that the
@@ -1513,6 +1521,14 @@ class WheelFile:
             Path in the archive to assign the file into, relative to the
             directory of the specified data section. If left empty, filename is
             used. Leading slashes are stripped.
+
+        recursive
+            When True, if given path leads to a directory, all of its contents
+            are going to be added into the archive, including contents of its
+            subdirectories.
+
+            If its False, only a directory entry is going to be added, without
+            any of tis contents.
         """
         self._check_section(section)
 
